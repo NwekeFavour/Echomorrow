@@ -21,7 +21,7 @@ function Home(props) {
                     <p className="m-0 xl:text-[52.6px] lg:text-[50.5px] md:leading-[50px] lg:leading-[60px] md:text-[40px] sm:text-[30px] font-bold">Write a Letter to the Future You</p>
                     <p className="m-0 lg:mt-4 md:mt-3 mt-2">Preserve a moment, a dream, or a feeling, and let your future self rediscover it. Send a message across time, to be delivered on the date you choose.</p>
                     <div className="md:mt-4 sm:mt-3 mt-2 ">
-                        <Button className="!text-gray-200 w-full !bg-black sm:!px-7 md:!px-10">Write A Letter</Button>
+                        <Link to={"/write-a-letter"} className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary !text-gray-200 w-full !bg-black sm:!px-7 md:py-2 py-2 lg:py-3 md:!px-10 css-1uent87-MuiButtonBase-root-MuiButton-root inline-flex items-center justify-center no-underline">Write A Letter</Link>
                     </div>
                 </div>
                 <div className="sm:flex hidden">

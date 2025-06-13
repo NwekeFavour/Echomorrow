@@ -5,6 +5,9 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
+import CircularProgress from '@mui/material/CircularProgress';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 const modalStyle = {
   position: 'absolute',
@@ -18,48 +21,72 @@ const modalStyle = {
   p: 4,
 };
 
-function Write() {
-    const [open, setOpen] = useState(false);
-    const quillRef = useRef(null);
-    const [scheduleDate, setScheduleDate] = useState('');
-const [name, setName] = useState('');
-const [email, setEmail] = useState('');
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
-    const handleSchedule = async () => {
+function Write() {
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: '',
+    severity: 'success',
+  });
+
+  const quillRef = useRef(null);
+  const [scheduleDate, setScheduleDate] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    if (!loading) setOpen(false);
+  };
+
+  const showSnackbar = (message, severity = 'success') => {
+    setSnackbar({ open: true, message, severity });
+  };
+
+  const handleSchedule = async () => {
     const editorContent = quillRef.current?.root.innerHTML;
 
-    if (!editorContent || !scheduleDate) return;
-
-    try {
-        const res = await fetch('http://localhost:5000/api/letters/send', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            name,
-            email,
-            message: editorContent,
-            deliveryDate: scheduleDate,
-        }),
-        });
-
-        const data = await res.json();
-        if (res.ok) {
-        alert('Your letter has been scheduled!');
-        } else {
-        alert('Something went wrong: ' + data.error);
-        }
-    } catch (error) {
-        console.error('Error scheduling letter:', error);
-        alert('An error occurred.');
+    if (!editorContent || !scheduleDate || !name || !email) {
+      showSnackbar('Please fill in all fields.', 'warning');
+      return;
     }
 
-    setOpen(false);
-    };
+    setLoading(true);
+    try {
+      const res = await fetch('http://localhost:5000/api/letters/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          message: editorContent,
+          deliveryDate: scheduleDate,
+        }),
+      });
 
+      const data = await res.json();
+      if (res.ok) {
+        showSnackbar('✅ Your letter has been scheduled!', 'success');
+        setName('');
+        setEmail('');
+        setScheduleDate('');
+        quillRef.current.root.innerHTML = '';
+        setOpen(false);
+      } else {
+        showSnackbar('❌ ' + (data.error || 'Something went wrong.'), 'error');
+      }
+    } catch (error) {
+      console.error('Fetch error:', error);
+      showSnackbar('⚠️ An unexpected error occurred.', 'error');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div>
@@ -71,52 +98,71 @@ const [email, setEmail] = useState('');
           </p>
           <p className="m-0">What would you say to yourself if no one else could read it?</p>
         </div>
+
         <form>
-            <TextField
+          <TextField
             fullWidth
             label="Your Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             sx={{ my: 1 }}
-            />
-            <TextField
+          />
+          <TextField
             fullWidth
             label="Your Email"
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             sx={{ my: 1 }}
-            />
+          />
 
           <Editor ref={quillRef} />
+
           <div className="flex justify-end md:my-4 sm:my-3 my-2">
             <Button variant="contained" onClick={handleOpen}>
               Schedule My Letter
             </Button>
-            <Modal open={open} onClose={handleClose} aria-labelledby="modal-title">
-              <Box sx={modalStyle}>
-                <h2 id="modal-title">Schedule Letter Delivery</h2>
-                <TextField
-                  fullWidth
-                  type="date"
-                  label="Delivery Date"
-                  InputLabelProps={{ shrink: true }}
-                  value={scheduleDate}
-                  onChange={(e) => setScheduleDate(e.target.value)}
-                  sx={{ my: 2 }}
-                />
-                <Button
-                  variant="contained"
-                  onClick={handleSchedule}
-                  disabled={!scheduleDate}
-                  fullWidth
-                >
-                  Confirm Schedule
-                </Button>
-              </Box>
-            </Modal>
           </div>
+
+          <Modal open={open} onClose={handleClose} aria-labelledby="modal-title">
+            <Box sx={modalStyle}>
+              <h2 id="modal-title">Schedule Letter Delivery</h2>
+
+              <TextField
+                fullWidth
+                type="date"
+                label="Delivery Date"
+                InputLabelProps={{ shrink: true }}
+                value={scheduleDate}
+                onChange={(e) => setScheduleDate(e.target.value)}
+                sx={{ my: 2 }}
+              />
+
+              <Button
+                variant="contained"
+                onClick={handleSchedule}
+                disabled={!scheduleDate || loading}
+                fullWidth
+                startIcon={loading ? <CircularProgress size={20} color="inherit" /> : null}
+              >
+                {loading ? 'Scheduling...' : 'Confirm Schedule'}
+              </Button>
+            </Box>
+          </Modal>
         </form>
       </div>
+
+      {/* Snackbar Notification */}
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={5000}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert onClose={() => setSnackbar({ ...snackbar, open: false })} severity={snackbar.severity}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
