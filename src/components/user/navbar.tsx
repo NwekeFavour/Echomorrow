@@ -88,7 +88,7 @@ export default function Navbar() {
             <Drawer open={open} onClose={toggleDrawer(false)}>
               {DrawerList}
             </Drawer>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: "#000", fontWeight: "bold"}} className='title'> EchoMorrow</Typography>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: "#000", fontWeight: "bold"}} className='title italic'> EchoMorrow</Typography>
           {token ?(
             <div>
               <IconButton
