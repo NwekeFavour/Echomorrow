@@ -91,7 +91,7 @@ function Home(props) {
                         <p className="text-lime-100 m-0 lg:text-[42.9px] md:text-[35px] sm:text-[30px] text-[25px]">Ready to talk to the future you?</p>
                     </div>
                     <div className='flex items-center justify-center'>
-                        <p className="text-lime-100 m-0">Include a CTA button: <Link className='bg-gray-100 px-3 rounded-[20px] py-2 border-3 text-black'><code>Start Writing</code></Link> </p>
+                        <p className="text-lime-100 m-0">Include a CTA button: <Link to={"/write-a-letter"} className='bg-gray-100 px-3 rounded-[20px] py-2 border-3 text-black'><code>Start Writing</code></Link> </p>
                     </div>
                 </div>
             </div>

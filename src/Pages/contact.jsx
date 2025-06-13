@@ -17,12 +17,12 @@ function Contact(props) {
                 <p className="text-center sm:text-[40px] text-lime-950 text-[30px] italic">"Your future self is waiting to hear from you."</p>
             </div>
             <div>
-                <div className="p-4 mx-auto max-w-3xl rounded-lg border-gray-50 shadow-md dark:bg-gray-800 lg:p-8">
+                <div className="p-4 mx-auto max-w-3xl rounded-lg border-gray-50 shadow-md dark:bg-lime-50 lg:p-8">
                     <form>
                         <div className="grid md:gap-8 md:grid-cols-2">
                             <div className="mb-6">
                                 <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-lime-950">First name</label>
-                                <input required="" type="text" id="first_name" placeholder="John" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder:text-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                <input required="" type="text" id="first_name" placeholder="John" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder:text-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                             </div>
                             <div className="mb-6">
                                 <label htmlFor="last_name" className="block mb-2 text-sm font-medium text-lime-950">Last name</label>
