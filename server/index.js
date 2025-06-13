@@ -14,7 +14,10 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'https://echomorrow-beta.vercel.app', // your frontend URL
+  credentials: true, // if you use cookies or sessions
+}));
 app.use(express.json());
 
 // Routes
