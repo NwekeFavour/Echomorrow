@@ -17,7 +17,7 @@ function Contact(props) {
                 <p className="text-center sm:text-[40px] text-lime-950 text-[30px] italic">"Your future self is waiting to hear from you."</p>
             </div>
             <div>
-                <div className="p-4 mx-auto max-w-3xl rounded-lg border-gray-50 shadow-md dark:bg-lime-50 lg:p-8">
+                <div className="p-4 mx-3 sm:mx-auto max-w-3xl rounded-lg border-gray-50 shadow-md dark:bg-white lg:p-8">
                     <form>
                         <div className="grid md:gap-8 md:grid-cols-2">
                             <div className="mb-6">
