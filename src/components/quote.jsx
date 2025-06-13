@@ -26,7 +26,7 @@ const data = [
 export default function Quote() {
   return (
     <Box
-      className="!w-full"
+      className="!w-full sm:!mx-0 !px-4 "
       sx={{
         display: 'flex',
         gap: 1,
@@ -44,8 +44,8 @@ export default function Quote() {
       }}
     >
       {data.map((item) => (
-        <Card className="!border-none" orientation="horizontal" size="sm" key={item.title} variant="outlined">
-          <Box  sx={{ whiteSpace: 'nowrap', mx: 1, minWidth: 400, maxWidth: 300}}>
+        <Card className="!border rounded-[30px]" orientation="horizontal" size="sm" key={item.title} variant="outlined">
+          <Box  sx={{ whiteSpace: 'nowrap', mx: 1, minWidth: 300, maxWidth: 300}}>
             <Typography className=" break-words   text-wrap italic" level="title-lg">"{item.title}"</Typography>
             <div className='relative '>
             <Typography className="tracking-[2px] absolute  top-[60px] break-words text-wrap" level="body-sm">{item.description}</Typography>

@@ -58,7 +58,7 @@ function Write() {
 
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/letters/send', {
+      const res = await fetch('https://echomorrow.onrender.com/api/letters/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
