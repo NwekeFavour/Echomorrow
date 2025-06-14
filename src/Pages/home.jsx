@@ -14,8 +14,8 @@ function Home(props) {
         <div>
             <Navbar/>
             <div className="lg:ms-17 sm:ms-6 xl:ms-20 lg:mt-5 md:mt-4 sm:mt-3 md:ms-14 sm:flex gap-5 items-center justify-between">
-                <div data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0"  className="sm:hidden mx-20 flex justify-center my-7">
-                    <img className="w-[300px] lg:h-[452.66px]" src={Career} alt="career-progress-img" />
+                <div data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0"  className="sm:hidden  flex justify-center my-7">
+                    <img className="w-[350px] lg:h-[452.66px]" src={Career} alt="career-progress-img" />
                 </div>
                 <div className="lg:w-[40%] sm:mx-0 mx-10 md:w-[50%]">
                     <p className="m-0 xl:text-[52.6px] lg:text-[50.5px] md:leading-[50px] lg:leading-[60px] md:text-[40px] sm:text-[30px] font-bold">Write a Letter to the Future You</p>
