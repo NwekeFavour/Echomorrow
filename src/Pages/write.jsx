@@ -56,6 +56,11 @@ function Write() {
       return;
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      showSnackbar('Please enter a valid email address.', 'warning');
+      return;
+    }
     setLoading(true);
     try {
       const res = await fetch('https://echomorrow.onrender.com/api/letters/send', {
