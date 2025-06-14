@@ -118,12 +118,6 @@ function Contact(props) {
                                 </div>
                             </div>
                         </div>
-                        <p className="mb-6 text-sm text-lime-950">By submitting this form you agree to our 
-                            <a className="text-blue-600 dark:text-blue-500 hover:underline" href="/terms-and-conditions/">Terms &amp; conditions</a>
-                            and our 
-                            <a className="text-blue-600 dark:text-blue-500 hover:underline" href="/privacy-policy/">Privacy Policy</a>
-                             which explains how we may collect, use and disclose your personal information including to third parties.
-                        </p>
                         <LoadingButton
                             loading={loading}
                             type="submit"
