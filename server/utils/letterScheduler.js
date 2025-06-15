@@ -3,30 +3,26 @@ const Letter = require('../models/letter');
 const sendLetterEmail = require('./sendEmail');
 
 const startScheduler = () => {
-  cron.schedule('1 0 * * *', async () => {
+  // Runs every minute
+  cron.schedule('* * * * *', async () => {
     console.log("📅 Running letter scheduler...");
 
-    // Get today's date at 00:00:00
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    // Get tomorrow's date at 00:00:00
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
+    const now = new Date();
+    now.setSeconds(0, 0); // Round down to the start of the current minute
 
     try {
       const lettersDue = await Letter.find({
-        deliveryDate: { $gte: today, $lt: tomorrow },
-        isSent: { $ne: true },
+        deliveryDate: { $lte: now },
+        isSent: false,
       });
 
       if (lettersDue.length === 0) {
-        console.log("No letters to send today.");
+        console.log("No letters to send at this minute.");
         return;
       }
 
       for (const letter of lettersDue) {
-          const emailContent = `
+        const emailContent = `
           <!DOCTYPE html>
           <html lang="en" style="font-family: 'Segoe UI', sans-serif; background-color: #f9fafb;">
             <head>
@@ -63,7 +59,7 @@ const startScheduler = () => {
               </div>
             </body>
           </html>
-        `; // your email HTML here
+        `;
 
         await sendLetterEmail({
           to: letter.email,
@@ -71,6 +67,7 @@ const startScheduler = () => {
           html: emailContent,
         });
 
+        // Mark letter as sent
         letter.isSent = true;
         await letter.save();
 

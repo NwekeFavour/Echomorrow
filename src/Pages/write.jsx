@@ -55,6 +55,8 @@ function Write() {
       showSnackbar('Please fill in all fields.', 'warning');
       return;
     }
+    const deliveryDateISO = new Date(scheduleDate).toISOString();
+
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -70,7 +72,7 @@ function Write() {
           name,
           email,
           message: editorContent,
-          deliveryDate: scheduleDate,
+          deliveryDate: deliveryDateISO,
         }),
       });
 
@@ -131,17 +133,18 @@ function Write() {
 
           <Modal open={open} onClose={handleClose} aria-labelledby="modal-title">
             <Box sx={modalStyle}>
-              <h2 id="modal-title">Schedule Letter Delivery</h2>
+              <h2 className='my-3' id="modal-title">Schedule Letter Delivery</h2>
 
               <TextField
+              className='!mb-2'
                 fullWidth
-                type="date"
+                type="datetime-local"
                 label="Delivery Date"
                 InputLabelProps={{ shrink: true }}
                 value={scheduleDate}
                 onChange={(e) => setScheduleDate(e.target.value)}
-                sx={{ my: 2 }}
               />
+
 
               <Button
                 variant="contained"
