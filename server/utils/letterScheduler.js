@@ -39,7 +39,7 @@ const startScheduler = () => {
                   This is the heartfelt message you wrote to yourself on <strong style="color: #4b0082;">EchoMorrow</strong>:
                 </p>
 
-                <blockquote style="margin: 1.5rem 0; padding: 1.5rem; background-color: #f4f3ff; border-left: 4px solid #4b0082; border-radius: 8px; color: #444; font-style: italic;">
+                <blockquote style="margin: 1rem 0; padding: 1rem; background-color: #f4f3ff; border-left: 4px solid #4b0082; border-radius: 8px; color: #444; font-style: italic;">
                   ${letter.message}
                 </blockquote>
 
