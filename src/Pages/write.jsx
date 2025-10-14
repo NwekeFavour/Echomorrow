@@ -75,7 +75,7 @@ function Write() {
           deliveryDate: deliveryDateISO,
         }),
       });
-
+    
       const data = await res.json();
       if (res.ok) {
         showSnackbar('✅ Your letter has been scheduled!', 'success');
