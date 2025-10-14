@@ -11,11 +11,6 @@ exports.sendLetter = async (req, res) => {
     console.error("Email is empty or undefined!");
   }
 
-
-
-
-
-
   try {
     console.log("Saving new letter to database...");
     const newLetter = new Letter({
