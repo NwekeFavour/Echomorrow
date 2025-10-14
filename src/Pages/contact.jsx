@@ -37,7 +37,7 @@ function Contact(props) {
         e.preventDefault();
         setLoading(true)
         try {
-        const res = await fetch('https://echomorrow.onrender.com/api/contact-us', {
+        const res = await fetch('https://echomorrow.vercel.app/api/contact-us', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData),
